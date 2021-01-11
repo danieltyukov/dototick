@@ -40,17 +40,34 @@ class _HomePageState extends State<HomePage> {
           itemCount: todos.length,
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
+              background: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  margin: EdgeInsets.all(4),
+                  color: Colors.red,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Icon(Icons.delete),
+                    margin: EdgeInsets.only(left: 5),
+                  ),
+                ),
+              ),
               direction: DismissDirection.startToEnd,
               onDismissed: (direction) => todos.removeAt(index),
               key: UniqueKey(),
               child: Card(
+                color: MyConstants.lightgrey,
                 elevation: 4,
                 margin: EdgeInsets.all(4),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: ListTile(
-                  title: Text(todos[index]),
+                  title: Text(
+                    todos[index],
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             );
@@ -87,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                   labelText: 'Name Of Task',
                 ),
               ),
-            )
+            ),
           ],
         ),
         actions: <Widget>[
