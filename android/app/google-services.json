@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "140081132750",
+    "project_id": "dototick",
+    "storage_bucket": "dototick.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140081132750:android:56d2bb60bb073dc1fe0c9f",
+        "android_client_info": {
+          "package_name": "com.danieltyukov.dototick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140081132750-uppgllfpgu86ds8pc41ms3nan4bqo6b6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTmADx9gX_tQUZSSc1N32YLeNXKVBrno4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140081132750-uppgllfpgu86ds8pc41ms3nan4bqo6b6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dototick/constants/constant.dart';
-import 'package:dototick/functions/bottom-nav.dart';
 import 'package:dototick/screens/home.dart';
 import 'package:dototick/screens/weekly.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ class PageViewPage extends StatefulWidget {
 }
 
 class _PageViewPageState extends State<PageViewPage> {
-  PageController pageController = PageController(initialPage: 0);
-  dynamic currentIndex;
+  var _pageController = PageController(initialPage: 0);
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,46 +26,47 @@ class _PageViewPageState extends State<PageViewPage> {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        index: currentIndex,
+        index: _currentIndex,
         backgroundColor: MyConstants.darkgrey,
-        height: 55,
+        height: 56,
         color: MyConstants.verydarkgrey,
-        onTap: (value) {
-          currentIndex = value;
-          pageController.jumpToPage(value);
+        onTap: (index) {
+          setState(
+            () {
+              _currentIndex = index;
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 600),
+                  curve: Curves.easeInOut);
+            },
+          );
         },
         items: <Widget>[
-          IconButton(
-            icon: Icon(
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Icon(
               Icons.add,
               size: 30,
               color: Colors.white,
             ),
-            onPressed: () {
-              pageController.jumpToPage(1);
-            },
           ),
-          IconButton(
-              icon: Icon(
-                Icons.list,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                pageController.jumpToPage(
-                  2,
-                );
-              }),
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Icon(
+              Icons.list,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: PageView(
-        controller: pageController,
-        onPageChanged: (page) {
+        controller: _pageController,
+        onPageChanged: (index) {
           setState(() {
-            currentIndex = page;
+            _currentIndex = index;
           });
         },
-        children: [
+        children: <Widget>[
           HomePage(),
           WeeklyPlan(),
         ],

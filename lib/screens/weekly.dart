@@ -1,3 +1,4 @@
+import 'package:dototick/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyPlan extends StatefulWidget {
@@ -10,6 +11,39 @@ class WeeklyPlan extends StatefulWidget {
 class _WeeklyPlanState extends State<WeeklyPlan> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: MyConstants.darkgrey,
+      body: Row(
+        children: [
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text("HELLO"),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:dototick/constants/constant.dart';
-import 'package:dototick/functions/bottom-nav.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
