@@ -1,3 +1,4 @@
+import 'package:dototick/functions/pageview.dart';
 import 'package:dototick/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xff192428),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(),
+      home: PageViewPage(),
     );
   }
 }

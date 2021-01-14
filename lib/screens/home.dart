@@ -12,20 +12,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List todos = List();
   String inputtask = '';
-
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: MyConstants.darkgrey,
-      bottomNavigationBar: bottomnav(context),
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          "Today Schedule",
-          textAlign: TextAlign.center,
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: MyConstants.lightgrey,
@@ -37,43 +28,47 @@ class _HomePageState extends State<HomePage> {
         onPressed: _showDialog,
       ),
       body: ListView.builder(
-          itemCount: todos.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Dismissible(
-              background: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: Container(
-                  margin: EdgeInsets.all(4),
-                  color: Colors.red,
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Icon(Icons.delete),
-                    margin: EdgeInsets.only(left: 5),
-                  ),
-                ),
-              ),
-              direction: DismissDirection.startToEnd,
-              onDismissed: (direction) => todos.removeAt(index),
-              key: UniqueKey(),
-              child: Card(
-                color: MyConstants.lightgrey,
-                elevation: 4,
+        itemCount: todos.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Dismissible(
+            background: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Container(
                 margin: EdgeInsets.all(4),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
+                color: Colors.red,
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  child: Icon(Icons.delete),
+                  margin: EdgeInsets.only(left: 5),
                 ),
-                child: ListTile(
-                  title: Text(
-                    todos[index],
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+            direction: DismissDirection.startToEnd,
+            onDismissed: (direction) => todos.removeAt(index),
+            key: UniqueKey(),
+            child: Card(
+              color: MyConstants.lightgrey,
+              margin: EdgeInsets.all(4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: ListTile(
+                title: Text(
+                  todos[index],
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
+
+  
 
   _showDialog() async {
     return await showDialog<String>(
@@ -119,9 +114,11 @@ class _HomePageState extends State<HomePage> {
           ),
           FlatButton(
             onPressed: () {
-              setState(() {
-                todos.add(inputtask);
-              });
+              setState(
+                () {
+                  todos.add(inputtask);
+                },
+              );
               Navigator.pop(context);
             },
             child: const Text(
@@ -134,3 +131,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
