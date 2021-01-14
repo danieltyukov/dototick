@@ -1,4 +1,5 @@
 import 'package:dototick/constants/constant.dart';
+import 'package:dototick/functions/weeklygraph.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyPlan extends StatefulWidget {
@@ -13,37 +14,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyConstants.darkgrey,
-      body: Row(
-        children: [
-          Container(
-            color: Colors.blue,
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text("HELLO"),
-          ),
-        ],
-      ),
+      body: weeklygraph(),
     );
   }
 }

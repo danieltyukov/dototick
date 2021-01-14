@@ -1,5 +1,4 @@
 import 'package:dototick/functions/pageview.dart';
-import 'package:dototick/screens/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {

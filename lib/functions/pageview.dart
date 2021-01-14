@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dototick/constants/constant.dart';
 import 'package:dototick/screens/home.dart';
 import 'package:dototick/screens/weekly.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class PageViewPage extends StatefulWidget {
@@ -12,7 +13,10 @@ class PageViewPage extends StatefulWidget {
 }
 
 class _PageViewPageState extends State<PageViewPage> {
-  var _pageController = PageController(initialPage: 0);
+  var _pageController = PageController(
+    initialPage: 0,
+    viewportFraction: 1.0,
+  );
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,7 @@ class _PageViewPageState extends State<PageViewPage> {
         ],
       ),
       body: PageView(
+        dragStartBehavior: DragStartBehavior.down,
         controller: _pageController,
         onPageChanged: (index) {
           setState(() {
