@@ -9,5 +9,11 @@ class MyConstants {
   static const blue = Color(0xff003083);
   static const lightblue = Color(0xff006abc);
   static const verylightblue = Color(0xff0098f1);
-  
+  static const red = Color(0xfff44336);
+  static const orange = Color(0xffff9800);
+  static const yellow = Color(0xffffc107);
+  static const green = Color(0xff4caf50);
+  static const lightbluecolor = Color(0xff03a9f4);
+  static const bluecolor = Color(0xff1976d2);
+  static const purple = Color(0xFF9C27B0);
 }

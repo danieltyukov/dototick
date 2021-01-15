@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dototick/constants/constant.dart';
+import 'package:dototick/screens/calendar.dart';
 import 'package:dototick/screens/home.dart';
 import 'package:dototick/screens/weekly.dart';
 import 'package:flutter/gestures.dart';
@@ -38,9 +39,9 @@ class _PageViewPageState extends State<PageViewPage> {
           setState(
             () {
               _currentIndex = index;
-              _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 600),
-                  curve: Curves.easeInOut);
+              _pageController.jumpToPage(
+                index,
+              );
             },
           );
         },
@@ -61,19 +62,30 @@ class _PageViewPageState extends State<PageViewPage> {
               color: Colors.white,
             ),
           ),
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Icon(
+              Icons.calendar_today,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: PageView(
         dragStartBehavior: DragStartBehavior.down,
         controller: _pageController,
         onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          setState(
+            () {
+              _currentIndex = index;
+            },
+          );
         },
         children: <Widget>[
           HomePage(),
           WeeklyPlan(),
+          CalenderSchedule(),
         ],
       ),
     );
