@@ -45,10 +45,50 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                   ),
                 ),
               ),
-              CheckboxListTile(
-                value: false,
-                onChanged: (value) {},
+
+              //
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: stufftodos.length,
+                itemBuilder: (context, int index) {
+                  return Dismissible(
+                    background: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                        color: Colors.red,
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Icon(Icons.delete),
+                          margin: EdgeInsets.only(left: 5),
+                        ),
+                      ),
+                    ),
+                    direction: DismissDirection.startToEnd,
+                    onDismissed: (direction) => stufftodos.removeAt(index),
+                    key: UniqueKey(),
+                    child: Card(
+                      color: MyConstants.lightgrey,
+                      margin: EdgeInsets.all(4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          stufftodos[index],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
+
+              //
               FlatButton(
                 splashColor: MyConstants.darkgrey,
                 color: MyConstants.verydarkgrey,
@@ -125,7 +165,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
     );
   }
 
-  List stufftodos = List();
+  
   String newtask = '';
   @override
   Widget build(BuildContext context) {
@@ -142,7 +182,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Monday",
-                      stufftodos,
+                      MyConstants.monList,
                       newtask,
                     );
                   },
@@ -179,7 +219,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Tuesday",
-                      stufftodos,
+                      MyConstants.tueList,
                       newtask,
                     );
                   },
@@ -216,7 +256,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Wednesday",
-                      stufftodos,
+                      MyConstants.wedList,
                       newtask,
                     );
                   },
@@ -253,7 +293,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Thursday",
-                      stufftodos,
+                      MyConstants.thuList,
                       newtask,
                     );
                   },
@@ -290,7 +330,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Friday",
-                      stufftodos,
+                      MyConstants.friList,
                       newtask,
                     );
                   },
@@ -327,7 +367,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Saturday",
-                      stufftodos,
+                      MyConstants.satList,
                       newtask,
                     );
                   },
@@ -364,7 +404,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                     bottomsheet(
                       context,
                       "Sunday",
-                      stufftodos,
+                      MyConstants.sunList,
                       newtask,
                     );
                   },
