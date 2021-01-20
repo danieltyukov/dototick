@@ -73,6 +73,7 @@ class _PageViewPageState extends State<PageViewPage> {
         ],
       ),
       body: PageView(
+        
         dragStartBehavior: DragStartBehavior.down,
         controller: _pageController,
         onPageChanged: (index) {
@@ -85,7 +86,7 @@ class _PageViewPageState extends State<PageViewPage> {
         children: <Widget>[
           HomePage(),
           WeeklyPlan(),
-          CalendarSchedule(),
+          Calendar(),
         ],
       ),
     );
