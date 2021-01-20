@@ -85,7 +85,7 @@ class _PageViewPageState extends State<PageViewPage> {
         children: <Widget>[
           HomePage(),
           WeeklyPlan(),
-          CalenderSchedule(),
+          CalendarSchedule(),
         ],
       ),
     );
