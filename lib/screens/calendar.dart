@@ -2,9 +2,8 @@ import 'dart:core';
 
 import 'package:dototick/constants/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cal/calendar_model.dart';
-import 'package:flutter_cal/db.dart';
-import 'package:flutter_cal/theme.dart';
+import 'package:dototick/functions/calendar_modals.dart';
+import 'package:dototick/functions/db';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +18,8 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  DateTime _selectedDay = DateTime.now();
+  //
   @override
   Widget build(BuildContext context) {
     return Scaffold(
