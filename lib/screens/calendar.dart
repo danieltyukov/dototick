@@ -47,12 +47,16 @@ class _CalendarState extends State<Calendar> {
           width: MediaQuery.of(context).size.width * 0.9,
           padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
           decoration: BoxDecoration(
-              border: Border(
-            top: BorderSide(color: Theme.of(context).dividerColor),
-          )),
+            border: Border(
+              top: BorderSide(color: Colors.white),
+            ),
+          ),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(d, style: Theme.of(context).primaryTextTheme.bodyText1),
+            Text(
+              d,
+              style: TextStyle(color: Colors.white),
+            ),
             IconButton(
                 icon: FaIcon(
                   FontAwesomeIcons.trashAlt,
@@ -70,6 +74,8 @@ class _CalendarState extends State<Calendar> {
       _selectedEvents = events;
     });
   }
+
+  
 
   void _create(BuildContext context) {
     String _name = "";
@@ -176,6 +182,91 @@ class _CalendarState extends State<Calendar> {
   }
 
   //
+
+  void _deleteEvent(String s) {
+    List<CalendarItem> d = _data.where((element) => element.name == s).toList();
+    if (d.length == 1) {
+      DB.delete(CalendarItem.table, d[0]);
+      _selectedEvents.removeWhere((e) => e == s);
+      _fetchEvents();
+    }
+  }
+
+  //
+
+  Widget calendar() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          gradient: LinearGradient(colors: [Colors.red[600], Colors.red[400]]),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black12,
+                blurRadius: 5,
+                offset: new Offset(0.0, 5))
+          ]),
+      child: TableCalendar(
+        calendarStyle: CalendarStyle(
+          canEventMarkersOverflow: true,
+          markersColor: Colors.white,
+          weekdayStyle: TextStyle(color: Colors.white),
+          todayColor: Colors.white54,
+          todayStyle: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 15,
+              fontWeight: FontWeight.bold),
+          selectedColor: Colors.red[900],
+          outsideWeekendStyle: TextStyle(color: Colors.white60),
+          outsideStyle: TextStyle(color: Colors.white60),
+          weekendStyle: TextStyle(color: Colors.white),
+          renderDaysOfWeek: false,
+        ),
+        onDaySelected: _onDaySelected,
+        calendarController: _calendarController,
+        events: _events,
+        headerStyle: HeaderStyle(
+          leftChevronIcon:
+              Icon(Icons.arrow_back_ios, size: 15, color: Colors.white),
+          rightChevronIcon:
+              Icon(Icons.arrow_forward_ios, size: 15, color: Colors.white),
+          titleTextStyle:
+              GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
+          formatButtonDecoration: BoxDecoration(
+            color: Colors.white60,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          formatButtonTextStyle: GoogleFonts.montserrat(
+              color: Colors.red, fontSize: 13, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+  //
+
+  Widget eventTitle() {
+    if (_selectedEvents.length == 0) {
+      return Container(
+        padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
+        child: Text(
+          'No Events',
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+    }
+    return Container(
+      padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
+      child: Text(
+        "Events",
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  //
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
