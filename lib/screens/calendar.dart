@@ -99,6 +99,34 @@ class _CalendarState extends State<Calendar> {
     );
 
     //
+
+    var btn = FlatButton(
+      child: Text(
+        'Save',
+        style: GoogleFonts.montserrat(
+            color: Color.fromRGBO(59, 57, 60, 1),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      ),
+      onPressed: () => _addEvent(_name),
+    );
+
+    //
+
+    var cancelButton = FlatButton(
+      child: Text(
+        'Cancel',
+        style: GoogleFonts.montserrat(
+            color: Color.fromRGBO(59, 57, 60, 1),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      ),
+      onPressed: () => Navigator.of(context).pop(false),
+    );
+
+    //
+
+    
   }
 
   //
