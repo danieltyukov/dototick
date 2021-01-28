@@ -9,12 +9,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   List todos = List();
   String inputtask = '';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: MyConstants.darkgrey,
       floatingActionButton: FloatingActionButton(
@@ -68,8 +66,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  
-
   _showDialog() async {
     return await showDialog<String>(
       context: context,
@@ -94,8 +90,7 @@ class _HomePageState extends State<HomePage> {
                     borderSide: BorderSide(color: Colors.white),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
-                  ),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                   labelText: 'Name Of Task',
                 ),
               ),
@@ -131,5 +126,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

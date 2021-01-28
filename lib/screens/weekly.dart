@@ -122,6 +122,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                                 ),
                                 labelStyle: TextStyle(
                                   color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                                 labelText: 'Name Of Task',
                               ),
@@ -165,7 +166,6 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
     );
   }
 
-  
   String newtask = '';
   @override
   Widget build(BuildContext context) {
