@@ -18,7 +18,23 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  //
   DateTime _selectedDay = DateTime.now();
+  CalendarController _callenderController;
+  Map<DateTime, List<dynamic>> _events = {};
+  List<dynamic> _selectedEvents = [];
+  List<Widget> get _eventWidgets =>
+      _selectedEvents.map((e) => events(e)).toList();
+
+    
+  //
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DB.ini
+  }
+    
   //
   @override
   Widget build(BuildContext context) {
