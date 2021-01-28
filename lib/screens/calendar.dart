@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:dototick/functions/calendar_modals.dart';
 import 'package:dototick/functions/db.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
@@ -74,8 +73,6 @@ class _CalendarState extends State<Calendar> {
       _selectedEvents = events;
     });
   }
-
-  
 
   void _create(BuildContext context) {
     String _name = "";
