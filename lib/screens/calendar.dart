@@ -83,12 +83,12 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-//TODO UNDERSTOOD
   //create the event
   void _create(BuildContext context) {
     //
     String _name = "";
     TextEditingController textEditingController = TextEditingController();
+    // ignore: unused_local_variable
     bool textEditingValidator = false;
     //
 
@@ -97,50 +97,56 @@ class _CalendarState extends State<Calendar> {
         setState(() {
           textEditingValidator = true;
         });
-        return false;
+        return true;
       }
       setState(() {
         textEditingValidator = false;
       });
-      return true;
+      return false;
     }
 
     var content = TextField(
+      maxLength: 30,
       controller: textEditingController,
-      style: GoogleFonts.montserrat(
-          color: Color.fromRGBO(105, 105, 108, 1), fontSize: 16),
+      cursorColor: Colors.white,
+      style: TextStyle(color: Colors.white70),
       autofocus: true,
       decoration: InputDecoration(
-        errorText: textEditingValidator ? 'Please Enter Something' : null,
-        labelStyle: GoogleFonts.montserrat(
-            color: Color.fromRGBO(59, 57, 60, 1),
-            fontSize: 18,
-            fontWeight: FontWeight.normal),
-        labelText: 'Workout Name',
+        counterStyle: TextStyle(color: Colors.white),
+        enabledBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+        labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        labelText: 'Name Of Task',
       ),
       onChanged: (value) {
         _name = value;
       },
     );
     var btn = FlatButton(
-        child: Text('Save',
-            style: GoogleFonts.montserrat(
-                color: Color.fromRGBO(59, 57, 60, 1),
-                fontSize: 16,
-                fontWeight: FontWeight.bold)),
+        child: const Text(
+          'SUBMIT',
+          style: TextStyle(color: Colors.white),
+        ),
         onPressed: () {
           bool val = validateTextField(textEditingController.text);
-          if (val = false){
-            _addEvent(_name);
+          print(val);
+          if (val == false) {
+            if (textEditingController.text.length <= 30) {
+              _addEvent(_name);
+            }
+            print('over 30 letters');
+          } else {
+            print('enter something');
           }
-          
         });
     var cancelButton = FlatButton(
-      child: Text('Cancel',
-          style: GoogleFonts.montserrat(
-              color: Color.fromRGBO(59, 57, 60, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.bold)),
+      child: const Text(
+        'CANCEL',
+        style: TextStyle(color: Colors.white),
+      ),
       onPressed: () => Navigator.of(context).pop(false),
     );
 
@@ -153,41 +159,18 @@ class _CalendarState extends State<Calendar> {
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(6),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0,
-                    offset: const Offset(0.0, 10.0),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min, // To make the card compact
-                children: <Widget>[
-                  SizedBox(height: 16.0),
-                  Text("Add Event",
-                      style: GoogleFonts.montserrat(
-                          color: Color.fromRGBO(59, 57, 60, 1),
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: content,
-                  ),
-                  Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[btn, cancelButton]),
-                ],
-              ),
-            ),
+        child: AlertDialog(
+          elevation: 0,
+          backgroundColor: MyConstants.blue,
+          contentPadding: const EdgeInsets.all(16.0),
+          content: Row(
+            children: <Widget>[
+              Expanded(child: content),
+            ],
+          ),
+          actions: <Widget>[
+            btn,
+            cancelButton,
           ],
         ),
       ),
@@ -308,7 +291,6 @@ class _CalendarState extends State<Calendar> {
   }
   //
 
-//TODO UNDERSTOOD
   //shows whether event exists or not
   Widget eventTitle() {
     if (_selectedEvents.length == 0) {
@@ -329,9 +311,6 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  //
-
-//TODO UNDERSTOOD
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -360,6 +339,7 @@ class _CalendarState extends State<Calendar> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         //pops up create new event on the date.
         onPressed: () => _create(context),
         //
@@ -367,7 +347,7 @@ class _CalendarState extends State<Calendar> {
           Icons.add,
           color: Colors.white,
         ),
-        backgroundColor: MyConstants.darkgrey,
+        backgroundColor: MyConstants.lightgrey,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

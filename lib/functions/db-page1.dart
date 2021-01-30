@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:dototick/functions/todo-task-modal.dart';
+
 import 'calendar_modals.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
@@ -34,12 +36,12 @@ abstract class DBpage1 {
   static Future<List<Map<String, dynamic>>> query(String table) async =>
       await _db.query(table);
 
-  static Future<int> insert(String table, CalendarItem item) async =>
+  static Future<int> insert(String table, ToDoItem item) async =>
       await _db.insert(
         table,
         item.toMap(),
       );
 
-  static Future<int> delete(String table, CalendarItem item) async =>
+  static Future<int> delete(String table, ToDoItem item) async =>
       await _db.delete(table, where: 'id = ?', whereArgs: [item.id]);
 }
