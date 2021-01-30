@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:dototick/constants/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,23 @@ class WeeklyPlan extends StatefulWidget {
 }
 
 class _WeeklyPlanState extends State<WeeklyPlan> {
+  TextEditingController textEditingController = TextEditingController();
+
+  bool textEditingValidator = false;
+
+  bool validateTextField(String userInput) {
+    if (userInput.isEmpty) {
+      setState(() {
+        textEditingValidator = true;
+      });
+      return true;
+    }
+    setState(() {
+      textEditingValidator = false;
+    });
+    return false;
+  }
+
   void bottomsheet(
     BuildContext context,
     String weekday,
@@ -99,62 +118,82 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                 onPressed: () {
                   showDialog<String>(
                     context: context,
-                    child: AlertDialog(
-                      elevation: 0,
-                      backgroundColor: MyConstants.blue,
-                      contentPadding: const EdgeInsets.all(16.0),
-                      content: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-                              onChanged: (String value) {
-                                newtask = value;
-                              },
-                              cursorColor: Colors.white,
-                              style: TextStyle(color: Colors.white70),
-                              autofocus: true,
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white)),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                    builder: (BuildContext context) => Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      elevation: 0.0,
+                      backgroundColor: Colors.transparent,
+                      child: AlertDialog(
+                        elevation: 0,
+                        backgroundColor: MyConstants.blue,
+                        contentPadding: const EdgeInsets.all(16.0),
+                        content: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: TextField(
+                                maxLength: 30,
+                                controller: textEditingController,
+                                onChanged: (String value) {
+                                  newtask = value;
+                                },
+                                cursorColor: Colors.white,
+                                style: TextStyle(color: Colors.white70),
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  labelText: 'Name Of Task',
                                 ),
-                                labelStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                labelText: 'Name Of Task',
                               ),
+                            ),
+                          ],
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'CANCEL',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  bool val = validateTextField(
+                                      textEditingController.text);
+                                  print(val);
+                                  if (val == false) {
+                                    if (textEditingController.text.length <=
+                                        30) {
+                                      stufftodos.add(newtask);
+                                    }
+                                    print('over 30 letters');
+                                  } else {
+                                    print('enter something');
+                                  }
+                                },
+                              );
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'SUBMIT',
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ],
                       ),
-                      actions: <Widget>[
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'CANCEL',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                stufftodos.add(newtask);
-                              },
-                            );
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'SUBMIT',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
                     ),
                   );
                 },
