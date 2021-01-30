@@ -4,6 +4,7 @@ import 'package:dototick/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:dototick/functions/calendar_modals.dart';
 import 'package:dototick/functions/db.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -21,6 +22,7 @@ class _CalendarState extends State<Calendar> {
   DateTime _selectedDay = DateTime.now();
 
   CalendarController _calendarController;
+
   Map<DateTime, List<dynamic>> _events = {};
   List<CalendarItem> _data = [];
 
@@ -28,6 +30,7 @@ class _CalendarState extends State<Calendar> {
   List<Widget> get _eventWidgets =>
       _selectedEvents.map((e) => events(e)).toList();
 
+//initialize the calendar state and dispose it when inactive
   void initState() {
     super.initState();
     DB.init().then((value) => _fetchEvents());
@@ -38,20 +41,22 @@ class _CalendarState extends State<Calendar> {
     _calendarController.dispose();
     super.dispose();
   }
+//
 
   Widget events(var d) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: Colors.white),
-            ),
+        width: MediaQuery.of(context).size.width * 0.9,
+        padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.white),
           ),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             Text(
               d,
               style: TextStyle(color: Colors.white),
@@ -63,24 +68,50 @@ class _CalendarState extends State<Calendar> {
                   size: 15,
                 ),
                 onPressed: () => _deleteEvent(d))
-          ])),
+          ],
+        ),
+      ),
     );
   }
 
   void _onDaySelected(DateTime day, List events, _) {
-    setState(() {
-      _selectedDay = day;
-      _selectedEvents = events;
-    });
+    setState(
+      () {
+        _selectedDay = day;
+        _selectedEvents = events;
+      },
+    );
   }
 
+//TODO UNDERSTOOD
+  //create the event
   void _create(BuildContext context) {
+    //
     String _name = "";
+    TextEditingController textEditingController = TextEditingController();
+    bool textEditingValidator = false;
+    //
+
+    bool validateTextField(String userInput) {
+      if (userInput.isEmpty) {
+        setState(() {
+          textEditingValidator = true;
+        });
+        return false;
+      }
+      setState(() {
+        textEditingValidator = false;
+      });
+      return true;
+    }
+
     var content = TextField(
+      controller: textEditingController,
       style: GoogleFonts.montserrat(
           color: Color.fromRGBO(105, 105, 108, 1), fontSize: 16),
       autofocus: true,
       decoration: InputDecoration(
+        errorText: textEditingValidator ? 'Please Enter Something' : null,
         labelStyle: GoogleFonts.montserrat(
             color: Color.fromRGBO(59, 57, 60, 1),
             fontSize: 18,
@@ -92,20 +123,28 @@ class _CalendarState extends State<Calendar> {
       },
     );
     var btn = FlatButton(
-      child: Text('Save',
-          style: GoogleFonts.montserrat(
-              color: Color.fromRGBO(59, 57, 60, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.bold)),
-      onPressed: () => _addEvent(_name),
-    );
-    var cancelButton = FlatButton(
-        child: Text('Cancel',
+        child: Text('Save',
             style: GoogleFonts.montserrat(
                 color: Color.fromRGBO(59, 57, 60, 1),
                 fontSize: 16,
                 fontWeight: FontWeight.bold)),
-        onPressed: () => Navigator.of(context).pop(false));
+        onPressed: () {
+          bool val = validateTextField(textEditingController.text);
+          if (val = false){
+            _addEvent(_name);
+          }
+          
+        });
+    var cancelButton = FlatButton(
+      child: Text('Cancel',
+          style: GoogleFonts.montserrat(
+              color: Color.fromRGBO(59, 57, 60, 1),
+              fontSize: 16,
+              fontWeight: FontWeight.bold)),
+      onPressed: () => Navigator.of(context).pop(false),
+    );
+
+    //shows dialog to create event
     showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
@@ -139,7 +178,10 @@ class _CalendarState extends State<Calendar> {
                           color: Color.fromRGBO(59, 57, 60, 1),
                           fontSize: 18,
                           fontWeight: FontWeight.bold)),
-                  Container(padding: EdgeInsets.all(20), child: content),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: content,
+                  ),
                   Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[btn, cancelButton]),
@@ -156,15 +198,26 @@ class _CalendarState extends State<Calendar> {
     _events = {};
     List<Map<String, dynamic>> _results = await DB.query(CalendarItem.table);
     _data = _results.map((item) => CalendarItem.fromMap(item)).toList();
-    _data.forEach((element) {
-      DateTime formattedDate = DateTime.parse(DateFormat('yyyy-MM-dd')
-          .format(DateTime.parse(element.date.toString())));
-      if (_events.containsKey(formattedDate)) {
-        _events[formattedDate].add(element.name.toString());
-      } else {
-        _events[formattedDate] = [element.name.toString()];
-      }
-    });
+    _data.forEach(
+      (element) {
+        DateTime formattedDate = DateTime.parse(
+          DateFormat('yyyy-MM-dd').format(
+            DateTime.parse(
+              element.date.toString(),
+            ),
+          ),
+        );
+        if (_events.containsKey(formattedDate)) {
+          _events[formattedDate].add(
+            element.name.toString(),
+          );
+        } else {
+          _events[formattedDate] = [
+            element.name.toString(),
+          ];
+        }
+      },
+    );
     setState(() {});
   }
 
@@ -189,8 +242,7 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
-  //
-
+  //displays the actual calendar
   Widget calendar() {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -229,13 +281,11 @@ class _CalendarState extends State<Calendar> {
           renderDaysOfWeek: false,
         ),
 
-
         //
         onDaySelected: _onDaySelected,
         calendarController: _calendarController,
         events: _events,
         //
-
 
         headerStyle: HeaderStyle(
           leftChevronIcon:
@@ -249,13 +299,16 @@ class _CalendarState extends State<Calendar> {
             borderRadius: BorderRadius.circular(20),
           ),
           formatButtonTextStyle: GoogleFonts.montserrat(
-              color: MyConstants.blue, fontSize: 13, fontWeight: FontWeight.bold),
+              color: MyConstants.blue,
+              fontSize: 13,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
   //
-  
+
+//TODO UNDERSTOOD
   //shows whether event exists or not
   Widget eventTitle() {
     if (_selectedEvents.length == 0) {
@@ -278,6 +331,7 @@ class _CalendarState extends State<Calendar> {
 
   //
 
+//TODO UNDERSTOOD
   @override
   Widget build(BuildContext context) {
     return Scaffold(
