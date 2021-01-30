@@ -59,7 +59,7 @@ class _CalendarState extends State<Calendar> {
             IconButton(
                 icon: FaIcon(
                   FontAwesomeIcons.trashAlt,
-                  color: Colors.redAccent,
+                  color: Colors.red,
                   size: 15,
                 ),
                 onPressed: () => _deleteEvent(d))
@@ -196,15 +196,22 @@ class _CalendarState extends State<Calendar> {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          gradient: LinearGradient(colors: [Colors.red[600], Colors.red[400]]),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black12,
-                blurRadius: 5,
-                offset: new Offset(0.0, 5))
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(6),
+        gradient: LinearGradient(
+          colors: [
+            MyConstants.verydarkgrey,
+            MyConstants.verydarkgrey,
+          ],
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5,
+            offset: new Offset(0.0, 5),
+          ),
+        ],
+      ),
       child: TableCalendar(
         calendarStyle: CalendarStyle(
           canEventMarkersOverflow: true,
@@ -212,18 +219,24 @@ class _CalendarState extends State<Calendar> {
           weekdayStyle: TextStyle(color: Colors.white),
           todayColor: Colors.white54,
           todayStyle: TextStyle(
-              color: Colors.redAccent,
+              color: MyConstants.blue,
               fontSize: 15,
               fontWeight: FontWeight.bold),
-          selectedColor: Colors.red[900],
+          selectedColor: MyConstants.darkblue,
           outsideWeekendStyle: TextStyle(color: Colors.white60),
           outsideStyle: TextStyle(color: Colors.white60),
           weekendStyle: TextStyle(color: Colors.white),
           renderDaysOfWeek: false,
         ),
+
+
+        //
         onDaySelected: _onDaySelected,
         calendarController: _calendarController,
         events: _events,
+        //
+
+
         headerStyle: HeaderStyle(
           leftChevronIcon:
               Icon(Icons.arrow_back_ios, size: 15, color: Colors.white),
@@ -236,13 +249,14 @@ class _CalendarState extends State<Calendar> {
             borderRadius: BorderRadius.circular(20),
           ),
           formatButtonTextStyle: GoogleFonts.montserrat(
-              color: Colors.red, fontSize: 13, fontWeight: FontWeight.bold),
+              color: MyConstants.blue, fontSize: 13, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
   //
-
+  
+  //shows whether event exists or not
   Widget eventTitle() {
     if (_selectedEvents.length == 0) {
       return Container(
@@ -282,14 +296,19 @@ class _CalendarState extends State<Calendar> {
               ],
             ),
           ),
+          //displays calendar
           calendar(),
+          //decides whether event exists or not
           eventTitle(),
+          //displays events
           Column(children: _eventWidgets),
           SizedBox(height: 60),
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        //pops up create new event on the date.
         onPressed: () => _create(context),
+        //
         child: Icon(
           Icons.add,
           color: Colors.white,
