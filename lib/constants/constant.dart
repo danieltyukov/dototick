@@ -16,11 +16,11 @@ class MyConstants {
   static const lightbluecolor = Color(0xff03a9f4);
   static const bluecolor = Color(0xff1976d2);
   static const purple = Color(0xFF9C27B0);
-  static List monList = List();
-  static List tueList = List();
-  static List wedList = List();
-  static List thuList = List();
-  static List friList = List();
-  static List satList = List();
-  static List sunList = List();
+  static List monList = [];
+  static List tueList = [];
+  static List wedList = [];
+  static List thuList = [];
+  static List friList = [];
+  static List satList = [];
+  static List sunList = [];
 }

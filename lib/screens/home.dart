@@ -9,8 +9,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List todos = List();
+  List<dynamic> todos = [];
   String inputtask = '';
+
+  TextEditingController textEditingController = TextEditingController();
+  // ignore: unused_local_variable
+  bool textEditingValidator = false;
+
+  bool validateTextField(String userInput) {
+    if (userInput.isEmpty) {
+      setState(() {
+        textEditingValidator = true;
+      });
+      return true;
+    }
+    setState(() {
+      textEditingValidator = false;
+    });
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +101,8 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Expanded(
                 child: TextField(
+                  controller: textEditingController,
+                  maxLength: 30,
                   onChanged: (String value) {
                     inputtask = value;
                   },
@@ -90,6 +110,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white70),
                   autofocus: true,
                   decoration: InputDecoration(
+                    counterStyle: TextStyle(color: Colors.white),
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
                     focusedBorder: UnderlineInputBorder(
@@ -117,10 +138,19 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 setState(
                   () {
-                    todos.add(inputtask);
+                    bool val = validateTextField(textEditingController.text);
+                    print(val);
+                    if (val == false) {
+                      if (textEditingController.text.length <= 30) {
+                        todos.add(inputtask);
+                        Navigator.pop(context);
+                      }
+                      print('over 30 letters');
+                    } else {
+                      print('enter something');
+                    }
                   },
                 );
-                Navigator.pop(context);
               },
               child: const Text(
                 'SUBMIT',

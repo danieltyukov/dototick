@@ -141,9 +141,12 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                                 style: TextStyle(color: Colors.white70),
                                 autofocus: true,
                                 decoration: InputDecoration(
+                                  counterStyle: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                   enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
@@ -178,6 +181,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                                     if (textEditingController.text.length <=
                                         30) {
                                       stufftodos.add(newtask);
+                                      Navigator.pop(context);
                                     }
                                     print('over 30 letters');
                                   } else {
@@ -185,7 +189,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                                   }
                                 },
                               );
-                              Navigator.pop(context);
+                              
                             },
                             child: const Text(
                               'SUBMIT',
