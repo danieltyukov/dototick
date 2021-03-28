@@ -1,4 +1,3 @@
-//identifying each event
 class CalendarItem {
   static String table = 'events';
 

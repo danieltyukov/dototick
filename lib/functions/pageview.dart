@@ -12,7 +12,6 @@ class PageViewPage extends StatefulWidget {
   @override
   _PageViewPageState createState() => _PageViewPageState();
 }
-
 class _PageViewPageState extends State<PageViewPage> {
   var _pageController = PageController(
     initialPage: 0,
