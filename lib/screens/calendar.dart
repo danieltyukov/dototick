@@ -87,7 +87,6 @@ class _CalendarState extends State<Calendar> {
     //
     String _name = "";
     TextEditingController textEditingController = TextEditingController();
-    // ignore: unused_local_variable
     bool textEditingValidator = false;
     //
 
