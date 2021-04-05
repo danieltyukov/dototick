@@ -98,9 +98,11 @@ class _CalendarState extends State<Calendar> {
         });
         return true;
       }
-      setState(() {
-        textEditingValidator = false;
-      });
+      setState(
+        () {
+          textEditingValidator = false;
+        },
+      );
       return false;
     }
 
@@ -124,7 +126,7 @@ class _CalendarState extends State<Calendar> {
         _name = value;
       },
     );
-    var btn = FlatButton(
+    var btn = TextButton(
         child: const Text(
           'SUBMIT',
           style: TextStyle(color: Colors.white),
@@ -141,7 +143,7 @@ class _CalendarState extends State<Calendar> {
             print('enter something');
           }
         });
-    var cancelButton = FlatButton(
+    var cancelButton = TextButton(
       child: const Text(
         'CANCEL',
         style: TextStyle(color: Colors.white),

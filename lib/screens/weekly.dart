@@ -108,12 +108,20 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
               ),
 
               //
-              FlatButton(
-                splashColor: MyConstants.darkgrey,
-                color: MyConstants.verydarkgrey,
-                textColor: Colors.white,
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.blue[900],
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 child: Text(
                   'Add Task',
+                  // style: TextStyle(
+                  //   color: Colors.white,
+                  // ),
                 ),
                 onPressed: () {
                   showDialog<String>(
@@ -161,7 +169,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                           ],
                         ),
                         actions: <Widget>[
-                          FlatButton(
+                          TextButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -170,7 +178,7 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          FlatButton(
+                          TextButton(
                             onPressed: () {
                               setState(
                                 () {
@@ -189,7 +197,6 @@ class _WeeklyPlanState extends State<WeeklyPlan> {
                                   }
                                 },
                               );
-                              
                             },
                             child: const Text(
                               'SUBMIT',

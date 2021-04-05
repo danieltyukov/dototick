@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 setState(
                   () {
