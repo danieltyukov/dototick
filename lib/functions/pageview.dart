@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dototick/constants/constant.dart';
-import 'package:dototick/screens/calendar.dart';
 import 'package:dototick/screens/home.dart';
 import 'package:dototick/screens/weekly.dart';
 import 'package:flutter/gestures.dart';
@@ -85,7 +84,7 @@ class _PageViewPageState extends State<PageViewPage> {
         children: <Widget>[
           HomePage(),
           WeeklyPlan(),
-          Calendar(),
+          // Calendar(),
         ],
       ),
     );

@@ -24,12 +24,12 @@ dependencies:
   flutter:
     sdk: flutter
   curved_navigation_bar: ^0.3.7
-  js: ^0.6.2
-  table_calendar: ^2.3.3
-  google_fonts: ^1.1.1
-  shared_preferences: ^0.5.12+4
-  provider: ^4.3.3
-  font_awesome_flutter: ^8.11.0
+  js: ^0.6.3
+  table_calendar: ^3.0.0
+  google_fonts: ^2.0.0
+  shared_preferences: ^2.0.5
+  provider: ^5.0.0
+  font_awesome_flutter: ^9.0.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.1
 

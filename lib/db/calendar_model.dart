@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:dototick/screens/calendar.dart';
-
 Calendar calendarFromJson(String str) {
   final jsonData = json.decode(str);
   return Calendar.fromMap(jsonData);
@@ -9,7 +7,6 @@ Calendar calendarFromJson(String str) {
 
 String calendarToJson(Calendar data) {
   final dyn = data.toMap();
-
   return json.encode(dyn);
 }
 
@@ -32,3 +29,5 @@ class Calendar {
         "date": date,
       };
 }
+
+
