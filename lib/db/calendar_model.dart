@@ -1,15 +1,4 @@
 import 'dart:convert';
-
-Calendar calendarFromJson(String str) {
-  final jsonData = json.decode(str);
-  return Calendar.fromMap(jsonData);
-}
-
-String calendarToJson(Calendar data) {
-  final dyn = data.toMap();
-  return json.encode(dyn);
-}
-
 class Calendar {
   int id;
   String name;
@@ -28,6 +17,16 @@ class Calendar {
         "name": name,
         "date": date,
       };
+}
+
+Calendar calendarFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Calendar.fromMap(jsonData);
+}
+
+String calendarToJson(Calendar data) {
+  final dyn = data.toMap();
+  return json.encode(dyn);
 }
 
 

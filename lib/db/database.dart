@@ -17,7 +17,7 @@ class DBProvider {
 
   initDB() async {
     Directory docDir = await getApplicationDocumentsDirectory();
-    String path = join(docDir.path, 'calendar.db');
+    String path = join(docDir.path, 'dototick.db');
     return await openDatabase(
       path,
       version: 1,
@@ -31,6 +31,16 @@ class DBProvider {
             "name TEXT,"
             "date DATETIME"
             ")");
+        await db.execute("CREATE TABLE Dailytasks ("
+            "id INTEGER PRIMARY KEY,"
+            "name TEXT"
+            ")");
+        await db.execute("CREATE TABLE Weektasks ("
+            "id INTEGER PRIMARY KEY,"
+            "day INTEGER,"
+            "name TEXT"
+            ")");
+        print("Databases were formed");
       },
     );
   }
