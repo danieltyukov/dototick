@@ -1,1 +1,1 @@
-# ⏰ Personal Daily Task App
+# Personal Daily Task App
